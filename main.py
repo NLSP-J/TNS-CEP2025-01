@@ -1,5 +1,6 @@
 import pygame as pg
 import random
+import asyncio
 
 pg.init()
 
@@ -46,7 +47,7 @@ red_mushroom_size = 40
 red_mushroom_speed = 5
 
 
-hammer_img = pg.image.load("C:\MyFiles\pyproj\pygame_env\TNS\hammer.png")
+hammer_img = pg.image.load("./assets/images/hammer.png").convert_alpha()
 hammer_img = pg.transform.scale(hammer_img, (100, 100))
 hammer_active = False
 hammer_pos = [0, HEIGHT * 3 // 4]  
@@ -56,22 +57,22 @@ hammer_timer = 0
 hammer_warning = False
 
 
-player_img = pg.image.load("C:/MyFiles/pyproj/pygame_env/TNS/mario.png")
+player_img = pg.image.load("./assets/images/mario.png").convert_alpha()
 player_img = pg.transform.scale(player_img, (player_size, player_size))
 
-debris_img = pg.image.load("C:/MyFiles/pyproj/pygame_env/TNS/e1.png")
+debris_img = pg.image.load("./assets/images/e1.png").convert_alpha()
 debris_img = pg.transform.scale(debris_img, (debris_size, debris_size))
 
-spike_img = pg.image.load("C:/MyFiles/pyproj/pygame_env/TNS/spike.png")
+spike_img = pg.image.load("./assets/images/spike.png").convert_alpha()
 spike_img = pg.transform.scale(spike_img, (spike_size, spike_size))
 
-blue_mushroom_img = pg.image.load("C:/MyFiles/pyproj/pygame_env/TNS/blue_mushroom.png")
+blue_mushroom_img = pg.image.load("./assets/images/blue_mushroom.png").convert_alpha()
 blue_mushroom_img = pg.transform.scale(blue_mushroom_img, (blue_mushroom_size, blue_mushroom_size))
 
-red_mushroom_img = pg.image.load("C:/MyFiles/pyproj/pygame_env/TNS/red_mushroom.png")
+red_mushroom_img = pg.image.load("./assets/images/red_mushroom.png").convert_alpha()
 red_mushroom_img = pg.transform.scale(red_mushroom_img, (red_mushroom_size, red_mushroom_size))
 
-bg_img = pg.image.load("C:/MyFiles/pyproj/pygame_env/TNS/background.png")
+bg_img = pg.image.load("./assets/images/background.png").convert_alpha()
 bg_img = pg.transform.scale(bg_img, (WIDTH, HEIGHT))
 
 
@@ -89,7 +90,7 @@ def restart_game():
     red_mushrooms = []
     is_small = False
 
-def main():
+async def main():
     global player_x, player_y, player_vel_y, player_jump
     global player_size, player_img, is_small
     global debris, spikes, blue_mushrooms, red_mushrooms
@@ -241,7 +242,8 @@ def main():
                         waiting = False
 
         pg.display.update()
+        await asyncio.sleep(0)
 
     pg.quit()
 
-main()
+asyncio.run(main())
